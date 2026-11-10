@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.iocoder</groupId>
+        <artifactId>yudao</artifactId>
+        <version>2.4.0-jdk8-snapshot</version>
+    </parent>
+
+    <artifactId>yudao-module-eam</artifactId>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <description>
+        EAM 设备资产管理系统：
+        设备台账（JSONB 扩展属性）、保养计划滑动周期引擎与工单自动生成、
+        维修工单状态机（派工-维修-验收闭环）、备件库存与出入库流水、MTBF/MTTR 可靠性指标。
+        基于芋道 ruoyi-vue-pro 二次开发，独立模块，可单独部署也可作 yudao 子模块。
+    </description>
+
+    <dependencies>
+        <!-- Web & Security & MyBatis 标配（与 QMS / APS 模块保持一致） -->
+        <dependency>
+            <groupId>cn.iocoder.boot</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.boot</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.boot</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.boot</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-tenant</artifactId>
+        </dependency>
+
+        <!-- 系统模块（依赖权限/字典/用户/部门） -->
+        <dependency>
+            <groupId>cn.iocoder.boot</groupId>
+            <artifactId>yudao-module-system-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.boot</groupId>
+            <artifactId>yudao-module-infra-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- ==================== 无第三方算法依赖 ==================== -->
+        <!-- EAM 的三大引擎（保养周期滑动计算 / 维修状态机 / MTBF 指标）全部用纯 Java 实现，
+             不引入 Quartz / Spring StateMachine / commons-math3，减少依赖体积与升级风险。 -->
+
+        <!-- Lombok / Test -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
